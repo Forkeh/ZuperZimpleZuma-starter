@@ -16,8 +16,6 @@ function init() {
 function addNewBall() {
     console.log("View clicked add new ball");
     // notify controller
-    console.log("TODO: Notify controller that we want to add a new ball to the chain!");
-    // TODO: Notify controller that we want to add a new ball to the chain!
     controller.addNewBall();
 }
 
@@ -30,8 +28,7 @@ const visualBalls = {
 
 const modelToView = new Map();
 function getVisualBall(node) {
-  return modelToView(node);
-
+    return modelToView(node);
 }
 
 function updateDisplay(model) {
@@ -91,6 +88,7 @@ function addButtonTo(visualBall, ballModel) {
         // notify controller
         console.log("TODO: Notify controller that we want to insert the cannonball after this!");
         // TODO: Notify controller that we want to insert the cannonball after this!
+        controller.insertCannonBallAfter(ballModel);
     });
 }
 

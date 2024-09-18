@@ -53,6 +53,8 @@ function getNextBall(ball) {
 }
 
 function insertBallAfter(ball, node) {
+    console.log("ball:", ball, "node:", node);
+    
     const newNode = list.insertAfter(ball, node);
     return checkMatches(newNode);
 }
