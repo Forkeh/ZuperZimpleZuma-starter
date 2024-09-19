@@ -29,8 +29,11 @@ function createInitialChain() {
 
 // TODO: Add controller functions to handle things happening in the view
 function addNewBall() {
-  model.addRandomBall();
+  const newBallNode = model.addRandomBall();
+  console.log("new ball node reference:", newBallNode);
   view.updateDisplay(model);
+  view.animateNewBall(model, newBallNode);
+  model.dump();
 }
 
 function insertCannonballAfter(ballNode) {

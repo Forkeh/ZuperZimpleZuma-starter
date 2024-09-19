@@ -1,5 +1,8 @@
-// TODO: Import controller
+// Import controller
 import * as controller from "./controller.js";
+import { animateNewBall } from "./animations.js";
+export { init, updateDisplay, getVisualBallForModelNode, animateNewBall };
+
 
 // *********************************
 // *                               *
@@ -14,9 +17,7 @@ function init() {
 
 function addNewBall() {
     console.log("View clicked add new ball");
-    // notify controller
-    console.log("TODO: Notify controller that we want to add a new ball to the chain!");
-    // TODO: Notify controller that we want to add a new ball to the chain!
+    // Notify controller that we want to add a new ball to the chain!
     controller.addNewBall();
 }
 
@@ -27,10 +28,10 @@ const visualBalls = {
     "🟢": "green-ball.png",
 };
 
-const modelToView = new Map();
-function getVisualBall(node) {
-  return modelToView(node);
+const nodeToVisualBall = new Map();
 
+function getVisualBallForModelNode(ballNode) {
+    return nodeToVisualBall.get(ballNode);
 }
 
 function updateDisplay(model) {
@@ -43,21 +44,22 @@ function updateDisplay(model) {
     // iterate through model of balls with the usual linked list method:
     // - find the first, loop while it isn't null, inside the loop: find the next
 
-    // TODO: Find the first ball
-    let ball = model.getFirstBall();
+    // Find the first ball
+    let nodeBall = model.getFirstBall();
 
-    // TODO: loop while the ball isn't null
-    while (ball != null) {
+    // loop while the ball isn't null
+    while (nodeBall != null) {
         // add visual ball
-        const visualBall = createVisualBall(ball.data);
+        const visualBall = createVisualBall(nodeBall.data);
         visualChain.append(visualBall);
+        
+        nodeToVisualBall.set(nodeBall, visualBall);
+        
         // add button next to ball
-        addButtonTo(visualBall, ball);
+        addButtonTo(visualBall, nodeBall);
 
-        modelToView.set(ball, visualBall);
-
-        // TODO: find the next ball and loop the loop
-        ball = model.getNextBall(ball);
+        // find the next ball and loop the loop
+        nodeBall = model.getNextBall(nodeBall);
     }
 
     // Also update the cannonball
@@ -100,4 +102,3 @@ function createButton() {
     return button;
 }
 
-export { init, updateDisplay, getVisualBall };

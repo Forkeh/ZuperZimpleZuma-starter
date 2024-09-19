@@ -36,7 +36,7 @@ function dump() {
 
 // **** WRAPPERS ****
 function addRandomBall() {
-    addBall(randomBall());
+    return addBall(randomBall());
 }
 
 function addBall(ball) {
