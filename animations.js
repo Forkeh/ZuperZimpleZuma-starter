@@ -19,26 +19,34 @@ function animateNewBall(model, newBall) {
 
     // Find the visualBall for this newBall
     const visualBall = view.getVisualBallForModelNode(newBall); // TODO: get the visual Ball from the view
-    
-    
+
     // We only want to animate the image - not the entire div with the button
     const onlyImg = visualBall.firstElementChild;
     console.log("onlyImg:", onlyImg);
 
+    // TODO: Hardcoded deltaX
     onlyImg.style.setProperty("--delta-x", "1500px");
 
     // First: - position to start from - somewhere just outside the screen
+    const startRect = document.querySelector("#chain").getBoundingClientRect().right;
+    console.log("startRect", startRect);
 
     // Last: - position to end - the current position of the visualBall
+    const endRect = onlyImg.getBoundingClientRect().left;
+    console.log("endRect", endRect);
 
     // Invert - calculate difference
+    // const deltaX = endRect - (startRect - 1500);
+    const distance = startRect - endRect;
+    console.log("distance", distance);
 
     // Set the --delta-x property with the calculated deltaX
+    onlyImg.style.setProperty("--delta-x", `${distance}px`);
 
     // Play animation
     onlyImg.classList.add("animate-add");
     onlyImg.addEventListener("animationend", doneAnimateNewBall);
-    
+
     function doneAnimateNewBall(event) {
         onlyImg.removeEventListener("animationend", doneAnimateNewBall);
         onlyImg.classList.remove("animate-add");
