@@ -40,7 +40,7 @@ function addRandomBall() {
 }
 
 function addBall(ball) {
-    list.add(ball);
+    return list.add(ball);
 }
 
 // TODO: Implement more functions
@@ -54,7 +54,8 @@ function getNextBall(ball) {
 
 function insertBallAfter(ball, node) {
     const newNode = list.insertAfter(ball, node);
-    return checkMatches(newNode);
+    checkMatches(newNode);
+    return newNode;
 }
 
 function numberOfBalls() {
@@ -81,7 +82,7 @@ function checkMatches(node) {
     // Find matches før node
     let lookat = node.prev;
     while (lookat && node.data == lookat.data) {
-        matches.push(node.prev);
+        matches.push(lookat);
         lookat = lookat.prev;
     }
 
@@ -90,15 +91,20 @@ function checkMatches(node) {
     // find matches efter node
     lookat = node.next;
     while (lookat && node.data == lookat.data) {
-        matches.push(node.next);
+        matches.push(lookat);
         lookat = lookat.next;
     }
+
     removeMatches(matches);
-    return matches;
 }
 
 function removeMatches(matches) {
-    if (!matches.length >= 3) return;
+    console.log(matches);
+
+    if (matches.length < 3) {
+        console.log("Not enough matches to remove!");
+        return;
+    }
 
     for (const match of matches) {
         list.remove(match);
