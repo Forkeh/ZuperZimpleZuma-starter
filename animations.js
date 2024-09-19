@@ -114,7 +114,7 @@ function animateCannonBall(model, newBall) {
         document.querySelector("#cannon .ball img").classList.remove("hide");
         // TODO: Notify controller when ball has moved
         console.log("Done moving canonball");
-        // controller.removeMatches(newBall)
+        controller.removeMatches(newBall);
     }
 }
 

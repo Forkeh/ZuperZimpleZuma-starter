@@ -13,6 +13,7 @@ export {
     loadCannon,
     removeMatches,
     list,
+    checkMatches,
 };
 
 const list = new SimpleLinkedList();
@@ -54,7 +55,6 @@ function getNextBall(ball) {
 
 function insertBallAfter(ball, node) {
     const newNode = list.insertAfter(ball, node);
-    checkMatches(newNode);
     return newNode;
 }
 
@@ -95,7 +95,7 @@ function checkMatches(node) {
         lookat = lookat.next;
     }
 
-    removeMatches(matches);
+    return matches;
 }
 
 function removeMatches(matches) {

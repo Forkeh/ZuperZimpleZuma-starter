@@ -50,7 +50,9 @@ function insertCannonballAfter(ballNode) {
 
 // TODO: Add controller functions to be called when animations have completed
 function removeMatches(ball) {
-  const matches = model.ch
+  const matches = model.checkMatches(ball);
+  model.removeMatches(matches);
+  view.updateDisplay(model);
 }
 
-export { addNewBall, insertCannonballAfter };
+export { addNewBall, insertCannonballAfter, removeMatches };
