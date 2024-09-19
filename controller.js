@@ -38,13 +38,19 @@ function addNewBall() {
 
 function insertCannonballAfter(ballNode) {
   const cannonball = model.getCannonBall();
-  model.insertBallAfter(cannonball, ballNode);
+  const newNode = model.insertBallAfter(cannonball, ballNode);
   model.loadCannon();
+
   view.updateDisplay(model);
+  view.animateCannonBall(model, newNode);
+  model.dump();
 }
 
 // **** ANIMATIONS ****
 
 // TODO: Add controller functions to be called when animations have completed
+function removeMatches(ball) {
+  const matches = model.ch
+}
 
 export { addNewBall, insertCannonballAfter };

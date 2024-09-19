@@ -3,7 +3,7 @@ import * as controller from "./controller.js";
 
 // TODO: Export animation functions
 // ALSO: Remember to import the same functions in view
-export { animateNewBall };
+export { animateNewBall, animateCannonBall };
 
 // *********************************
 // *                               *
@@ -23,9 +23,6 @@ function animateNewBall(model, newBall) {
     // We only want to animate the image - not the entire div with the button
     const onlyImg = visualBall.firstElementChild;
     console.log("onlyImg:", onlyImg);
-
-    // TODO: Hardcoded deltaX
-    onlyImg.style.setProperty("--delta-x", "1500px");
 
     // First: - position to start from - somewhere just outside the screen
     const startRect = document.querySelector("#chain").getBoundingClientRect().right;
@@ -84,17 +81,18 @@ function animateCannonBall(model, newBall) {
 
     // First: Find the starting position of the ball - which is where the cannonball is
     const visualCannonball = document.querySelector("#cannon .ball img");
-
     // TODO: Find the position (x and y) of the visualCannonBall
+    const cannonRect = visualCannonball.getBoundingClientRect();
 
     // Last: Find the destination position of the ball - which is where it has been added
     const ballImage = visualBall.querySelector("img"); // only use the img, not the entire element with the button
 
     // TODO: Find the position (x and y) of the ballImage
+    const ballRect = ballImage.getBoundingClientRect();
 
     // Invert: calculate the distance to move from source to destination
-    const deltaX = 1000; // TODO: Replace silly constant with actual distance
-    const deltaY = 1000; // TODO: Replace silly constant with actual distance
+    const deltaX = cannonRect.left - ballRect.left; // TODO: Replace silly constant with actual distance
+    const deltaY = cannonRect.top - ballRect.top; // TODO: Replace silly constant with actual distance
 
     // Play: run the animation from source to destination
     ballImage.style.setProperty("--delta-x", deltaX + "px");
@@ -116,6 +114,7 @@ function animateCannonBall(model, newBall) {
         document.querySelector("#cannon .ball img").classList.remove("hide");
         // TODO: Notify controller when ball has moved
         console.log("Done moving canonball");
+        // controller.removeMatches(newBall)
     }
 }
 
