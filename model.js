@@ -13,6 +13,7 @@ export {
     loadCannon,
     removeMatches,
     list,
+    checkMatches,
 };
 
 const list = new SimpleLinkedList();
@@ -36,7 +37,7 @@ function dump() {
 
 // **** WRAPPERS ****
 function addRandomBall() {
-    addBall(randomBall());
+    return addBall(randomBall());
 }
 
 function addBall(ball) {
@@ -54,7 +55,6 @@ function getNextBall(ball) {
 
 function insertBallAfter(ball, node) {
     const newNode = list.insertAfter(ball, node);
-    checkMatches(newNode);
     return newNode;
 }
 
@@ -81,6 +81,8 @@ function checkMatches(node) {
 
     // Find matches før node
     let lookat = node.prev;
+    
+    
     while (lookat && node.data == lookat.data) {
         matches.push(lookat);
         lookat = lookat.prev;
@@ -89,13 +91,13 @@ function checkMatches(node) {
     // If den vi kigger på er et match, push den til matches
 
     // find matches efter node
-    lookat = node.next;
+    lookat = node?.next;
     while (lookat && node.data == lookat.data) {
         matches.push(lookat);
         lookat = lookat.next;
     }
 
-    removeMatches(matches);
+    return matches;
 }
 
 function removeMatches(matches) {
