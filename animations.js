@@ -3,7 +3,7 @@ import * as controller from "./controller.js";
 
 // TODO: Export animation functions
 // ALSO: Remember to import the same functions in view
-export { animateNewBall, animateCannonBall };
+export { animateNewBall, animateCannonBall, animateRemoveBalls };
 
 // *********************************
 // *                               *
@@ -120,19 +120,26 @@ function animateCannonBall(model, newBall) {
 
 function animateRemoveBalls(model, balls) {
     // NOTE: Run the animation-implode animations BEFORE updating the view
+    console.log("balls:", balls);
 
-    let first = true;
     const lastBall = balls[balls.length - 1];
     const nextBall = model.getNextBall(lastBall);
+    console.log(nextBall);
+    
     for (const ball of balls) {
-        const visualBall = view.getViewForModel(ball);
-        visualBall.classList.add("implode");
-        if (first) {
-            first = false;
+        const visualBall = view.getVisualBallForModelNode(ball);
+        visualBall.classList.add("animate-implode");
+
+        if (lastBall === ball) {
             visualBall.addEventListener("animationend", () => {
                 view.updateDisplay(model);
-                controller.matchesRemoved(nextBall);
+                if (nextBall) {
+                  controller.removeMatches(nextBall);
+                }
+                controller.removeBalls(balls);
             });
-        }
+          }
     }
 }
+
+

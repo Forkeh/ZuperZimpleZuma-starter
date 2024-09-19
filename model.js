@@ -81,6 +81,8 @@ function checkMatches(node) {
 
     // Find matches før node
     let lookat = node.prev;
+    
+    
     while (lookat && node.data == lookat.data) {
         matches.push(lookat);
         lookat = lookat.prev;
@@ -89,7 +91,7 @@ function checkMatches(node) {
     // If den vi kigger på er et match, push den til matches
 
     // find matches efter node
-    lookat = node.next;
+    lookat = node?.next;
     while (lookat && node.data == lookat.data) {
         matches.push(lookat);
         lookat = lookat.next;
